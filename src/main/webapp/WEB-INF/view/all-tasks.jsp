@@ -1,12 +1,4 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Evgen
-  Date: 08.08.2024
-  Time: 13:18
-  To change this template use File | Settings | File Templates.
---%>
-
 
 <html>
 <body>

@@ -1,13 +1,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
-<html >
+<html>
 <head>
     <title>Spring Security Example </title>
 </head>
 <body>
 
 
-<form:form action="@{/tasks}" method="get">
+<form:form action="/auth" method="post" modelAttribute="user">
     <div><label> User Name : <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
