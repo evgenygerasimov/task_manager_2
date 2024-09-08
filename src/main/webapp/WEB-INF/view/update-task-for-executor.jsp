@@ -6,35 +6,21 @@
 <body>
 <form:form action="/tasks/saveTask" modelAttribute="task">
 
-    <form:hidden path="id"/>
-    <br>
-    <br>
-    Title <form:input path="title"/>
-    <br>
-    <br>
-    Description <form:input path="description"/>
-    <br>
-    <br>
     Status <form:select path="status">
     <form:options items="${task.statuses}"/>
     </form:select >
     <br>
     <br>
-    Priority <form:select path="priority">
-    <from:options items="${task.priorities}"/>
-    </form:select>
-    <br>
-    <br>
-    Executor <form:select path="executor">
-    <from:options items="${task.listUsers}"/>
-    </form:select>
-    <br>
-    <br>
     Comment <form:input path="comment"/>
     <br>
     <br>
-    <form:hidden path="author"/>
-    <form:hidden path="user.username"/>
+    <form:hidden readonly="true" path="id"/>
+    <form:hidden readonly="true" path="description"/>
+    <form:hidden readonly="true" path="title"/>
+    <form:hidden readonly="true" path="priority"/>
+    <form:hidden readonly="true" path="executor"/>
+    <form:hidden readonly="true" path="author"/>
+    <form:hidden readonly="true" path="user.username"/>
     <input type="submit" value="OK">
     <br>
     <br>

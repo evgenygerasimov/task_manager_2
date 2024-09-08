@@ -3,7 +3,7 @@
 <body>
 <form:form action="/saveUser" modelAttribute="user">
 
-    <form:hidden path="id"/>
+<%--    <form:hidden path="id"/>--%>
 
 
     <br>

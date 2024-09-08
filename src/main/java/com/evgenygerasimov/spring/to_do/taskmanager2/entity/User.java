@@ -1,75 +1,63 @@
 package com.evgenygerasimov.spring.to_do.taskmanager2.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
     @Column(name = "username")
     private String username;
     @Column(name = "password")
     private String password;
+    @Column(name = "enabled")
+    private int enabled = 1;
     @Column(name = "role")
     private String role;
+    @OneToMany(mappedBy = "user")
+    private Set<Task> tasks;
 
     private transient Map<String, String> roles;
 
     public User() {
         roles = new HashMap<>();
-        roles.put("author", "author");
-        roles.put("executor", "executor");
+        roles.put("ROLE_CUSTOMER", "CUSTOMER");
+        roles.put("ROLE_EXECUTOR", "EXECUTOR");
     }
 
-    public User(String username, String password, String role) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Set.of(new SimpleGrantedAuthority(role));
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public String getUsername() {
-        return username;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Map<String, String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Map<String, String> roles) {
-        this.roles = roles;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

@@ -6,5 +6,9 @@
 </head>
 <body>
 ABOUT
+<br>
+<br>
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'"/>
 </body>
 </html>

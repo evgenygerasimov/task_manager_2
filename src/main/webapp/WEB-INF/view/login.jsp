@@ -6,14 +6,12 @@
 <body>
 
 
-<form:form action="/auth" method="post" modelAttribute="user">
+<form:form action="/login" method="post">
     <div><label> User Name : <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
 </form:form>
-<br>
-<br>
-<input type="button" value="Registration"
-       onclick="window.location.href = '/addNewUser'"/>
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'"/>
 </body>
 </html>

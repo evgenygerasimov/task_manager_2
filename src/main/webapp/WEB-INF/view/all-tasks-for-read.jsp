@@ -15,7 +15,7 @@
         <th style="border: 1px solid black;">Author</th>
         <th style="border: 1px solid black;">Executor</th>
         <th style="border: 1px solid black;">Comment</th>
-        <th style="border: 1px solid black;">Actions</th>
+
     </tr>
 
     <c:forEach var="task" items="${tasks}">
@@ -36,23 +36,11 @@
             <td style="border: 1px solid black;">${task.author}</td>
             <td style="border: 1px solid black;">${task.executor}</td>
             <td style="border: 1px solid black;">${task.comment}</td>
-            <td style="border: 1px solid black;"><input type="button" value="Update"
-                       onclick="window.location.href = '${updateButton}'"/>
-                <security:authorize access="hasRole('CUSTOMER')">
-                <input type="button" value="Delete"
-                       onclick="window.location.href = '${deleteButton}'"/>
-                </security:authorize>
-            </td>
+
 
         </tr>
     </c:forEach>
 </table>
-<br>
-    <security:authorize access="hasRole('CUSTOMER')">
-        <input type="button" value="Add task"
-        onclick="window.location.href = '/tasks/addNewTask'"/>
-    </security:authorize>
-    <br>
     <br>
     <input type="button" value="Logout"
            onclick="window.location.href = '/logout'"/>

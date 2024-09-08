@@ -1,12 +1,15 @@
 package com.evgenygerasimov.spring.to_do.taskmanager2.security;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -18,35 +21,78 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 
+import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 import java.security.AuthProvider;
 
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
+    private final DataSource dataSource;
+
+
+    public WebSecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+
+    }
+
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//
+//        http
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .cors(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests((user) -> user
+//                        .requestMatchers("/", "/addNewUser", "/login", "/saveUser").permitAll()
+//                        .requestMatchers("/about"
+//                                , "/tasks"
+//                                , "/addNewTask"
+//                                , "/deleteTask"
+//                                , "/updateTask"
+//                                , "/saveTask").hasRole("USER")
+//                        .anyRequest().permitAll())
+//                        .formLogin(AbstractHttpConfigurer::disable)
+//                        .logout(LogoutConfigurer::disable);;
+//
+//
+//        return http.build();
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
-                .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((user) -> user
-                        .requestMatchers("/", "/addNewUser", "/login", "/saveUser").permitAll()
-                        .requestMatchers("/about"
-                                , "/tasks"
-                                , "/addNewTask"
-                                , "/deleteTask"
-                                , "/updateTask"
-                                , "/saveTask").hasRole("USER")
-                        .anyRequest().permitAll())
-                        .formLogin(AbstractHttpConfigurer::disable)
-                        .logout(LogoutConfigurer::disable);;
-
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers("/tasks/**", "/about").hasAnyRole("CUSTOMER", "EXECUTOR")
+                        .anyRequest().permitAll()
+                )
+                .authenticationProvider(authenticationProvider())
+                .formLogin(login -> login
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/tasks/tasks", false)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll()
+                );
 
         return http.build();
+    }
+
+
+    @Bean
+    public UserDetailsManager userDetailsManager(DataSource dataSource) {
+        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
@@ -57,7 +103,7 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setUserDetailsService(userDetailsManager(dataSource));
 //        authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
@@ -67,15 +113,15 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("user")
-                        .roles("USER")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user =
+//                User.withDefaultPasswordEncoder()
+//                        .username("user")
+//                        .password("user")
+//                        .roles("USER")
+//                        .build();
+//
+//        return new InMemoryUserDetailsManager(user);
+//    }
 }
