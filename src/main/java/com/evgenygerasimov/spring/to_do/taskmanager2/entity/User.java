@@ -16,6 +16,7 @@ import java.util.*;
 @AllArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
+
     @Id
     @Column(name = "username")
     private String username;

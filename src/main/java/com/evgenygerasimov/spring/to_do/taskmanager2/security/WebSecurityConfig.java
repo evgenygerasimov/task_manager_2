@@ -36,33 +36,10 @@ import java.security.AuthProvider;
 public class WebSecurityConfig {
     private final DataSource dataSource;
 
-
     public WebSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
 
     }
-
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//
-//        http
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .cors(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests((user) -> user
-//                        .requestMatchers("/", "/addNewUser", "/login", "/saveUser").permitAll()
-//                        .requestMatchers("/about"
-//                                , "/tasks"
-//                                , "/addNewTask"
-//                                , "/deleteTask"
-//                                , "/updateTask"
-//                                , "/saveTask").hasRole("USER")
-//                        .anyRequest().permitAll())
-//                        .formLogin(AbstractHttpConfigurer::disable)
-//                        .logout(LogoutConfigurer::disable);;
-//
-//
-//        return http.build();
-//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -89,7 +66,6 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
@@ -97,14 +73,13 @@ public class WebSecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return  configuration.getAuthenticationManager();
+        return configuration.getAuthenticationManager();
     }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsManager(dataSource));
-//        authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
 
@@ -112,16 +87,4 @@ public class WebSecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
 }

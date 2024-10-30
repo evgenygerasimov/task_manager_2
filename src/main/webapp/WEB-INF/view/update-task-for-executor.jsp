@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
-<form:form action="/tasks/saveTask" modelAttribute="task">
+<form:form action="${pageContext.request.contextPath}/tasks/saveTask" modelAttribute="task">
 
     Status <form:select path="status">
     <form:options items="${task.statuses}"/>
@@ -25,7 +25,7 @@
     <br>
     <br>
     <input type="button" value="Logout"
-           onclick="window.location.href = '/logout'"/>
+           onclick="window.location.href = '${pageContext.request.contextPath}/logout'"/>
 </form:form>
 </body>
 </html>

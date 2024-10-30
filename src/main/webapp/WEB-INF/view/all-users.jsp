@@ -1,12 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Evgen
-  Date: 28.08.2024
-  Time: 12:17
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -31,7 +24,6 @@
 
             </c:set>
 
-
             <tr>
                 <td style="border: 1px solid black;">${user.username}</td>
                 <td style="border: 1px solid black;">
@@ -39,7 +31,7 @@
                     <c:if test="${role == 'ROLE_CUSTOMER'}"><p>Customer</p></c:if>
                 </td>
                 <td style="border: 1px solid black;"><input type="button" value="View tasks"
-                           onclick="window.location.href = '${viewTasks}'"/></td>
+                                                            onclick="window.location.href = '${viewTasks}'"/></td>
             </tr>
 
         </c:forEach>
@@ -47,7 +39,7 @@
     <br>
     <br>
     <input type="button" value="Logout"
-           onclick="window.location.href = '/logout'"/>
+           onclick="window.location.href = '${pageContext.request.contextPath}/logout'"/>
 </form>
 </body>
 </html>

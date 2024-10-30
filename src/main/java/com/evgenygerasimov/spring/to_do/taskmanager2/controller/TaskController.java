@@ -93,8 +93,5 @@ public class TaskController {
             model.addAttribute("tasks", taskService.findAllByExecutor(user));
         }
         return "all-tasks-for-read";
-
     }
-
-
 }

@@ -8,12 +8,14 @@ import lombok.Setter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @Setter
 @Getter
 @Entity
 @AllArgsConstructor
 @Table(name = "tasks")
 public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -36,12 +38,9 @@ public class Task {
     @JoinColumn(name = "username")
     private User user;
 
-
     private transient Map<String, String> statuses;
     private transient Map<String, String> priorities;
     private transient List<User> listUsers;
-
-
 
     public Task() {
         statuses = new HashMap<>();

@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,6 +8,6 @@ ABOUT
 <br>
 <br>
 <input type="button" value="Logout"
-       onclick="window.location.href = '/logout'"/>
+       onclick="window.location.href = '${pageContext.request.contextPath}/logout'"/>
 </body>
 </html>

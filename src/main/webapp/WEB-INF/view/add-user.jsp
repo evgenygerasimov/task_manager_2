@@ -1,11 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <body>
-<form:form action="/saveUser" modelAttribute="user">
-
-<%--    <form:hidden path="id"/>--%>
-
-
+<form:form action="${pageContext.request.contextPath}/saveUser" modelAttribute="user">
     <br>
     <br>
     Name <form:input path="username"/>
@@ -16,7 +12,7 @@
     <br>
     Role <form:select path="role">
     <form:options items="${user.roles}"/>
-</form:select >
+</form:select>
     <br>
     <br>
     <input type="submit" value="OK">
