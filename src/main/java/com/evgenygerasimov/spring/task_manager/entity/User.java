@@ -1,20 +1,23 @@
-package com.evgenygerasimov.spring.to_do.taskmanager2.entity;
+package com.evgenygerasimov.spring.task_manager.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @Table(name = "users")
+@ToString
 public class User implements UserDetails {
 
     @Id
@@ -24,6 +27,8 @@ public class User implements UserDetails {
     private String password;
     @Column(name = "enabled")
     private int enabled = 1;
+    @Column(name = "email")
+    private String email;
     @Column(name = "role")
     private String role;
     @OneToMany(mappedBy = "user")

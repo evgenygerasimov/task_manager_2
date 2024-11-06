@@ -1,9 +1,7 @@
-package com.evgenygerasimov.spring.to_do.taskmanager2.entity;
+package com.evgenygerasimov.spring.task_manager.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +12,7 @@ import java.util.Map;
 @Entity
 @AllArgsConstructor
 @Table(name = "tasks")
+@ToString
 public class Task {
 
     @Id
@@ -51,6 +50,17 @@ public class Task {
         priorities.put("High", "High");
         priorities.put("Medium", "Medium");
         priorities.put("Low", "Low");
+    }
 
+    public Task(int i, String s, String s1, String done, String high, String ivan, String petr, String comment, User user) {
+        this.id = i;
+        this.title = s;
+        this.description = s;
+        this.status = s;
+        this.priority = done;
+        this.author = done;
+        this.executor = done;
+        this.comment = comment;
+        this.user = user;
     }
 }

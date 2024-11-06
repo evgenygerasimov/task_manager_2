@@ -1,9 +1,9 @@
-package com.evgenygerasimov.spring.to_do.taskmanager2.controller;
+package com.evgenygerasimov.spring.task_manager.controller;
 
-import com.evgenygerasimov.spring.to_do.taskmanager2.entity.Task;
-import com.evgenygerasimov.spring.to_do.taskmanager2.entity.User;
-import com.evgenygerasimov.spring.to_do.taskmanager2.service.TaskService;
-import com.evgenygerasimov.spring.to_do.taskmanager2.service.UserService;
+import com.evgenygerasimov.spring.task_manager.entity.Task;
+import com.evgenygerasimov.spring.task_manager.entity.User;
+import com.evgenygerasimov.spring.task_manager.service.TaskService;
+import com.evgenygerasimov.spring.task_manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;

@@ -1,7 +1,7 @@
-package com.evgenygerasimov.spring.to_do.taskmanager2.repository;
+package com.evgenygerasimov.spring.task_manager.repository;
 
 
-import com.evgenygerasimov.spring.to_do.taskmanager2.entity.Task;
+import com.evgenygerasimov.spring.task_manager.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,12 +1,11 @@
-package com.evgenygerasimov.spring.to_do.taskmanager2;
+package com.evgenygerasimov.spring.task_manager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Taskmanager2Application {
-
+public class TaskManagerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Taskmanager2Application.class, args);
+        SpringApplication.run(TaskManagerApplication.class, args);
     }
 }

@@ -1,18 +1,16 @@
-package com.evgenygerasimov.spring.to_do.taskmanager2.controller;
+package com.evgenygerasimov.spring.task_manager.controller;
 
 
-import com.evgenygerasimov.spring.to_do.taskmanager2.entity.Role;
-import com.evgenygerasimov.spring.to_do.taskmanager2.entity.User;
-import com.evgenygerasimov.spring.to_do.taskmanager2.service.RoleService;
-import com.evgenygerasimov.spring.to_do.taskmanager2.service.UserService;
+import com.evgenygerasimov.spring.task_manager.entity.Role;
+import com.evgenygerasimov.spring.task_manager.entity.User;
+import com.evgenygerasimov.spring.task_manager.service.RoleService;
+import com.evgenygerasimov.spring.task_manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

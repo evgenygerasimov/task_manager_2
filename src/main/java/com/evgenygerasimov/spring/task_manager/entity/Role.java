@@ -1,4 +1,4 @@
-package com.evgenygerasimov.spring.to_do.taskmanager2.entity;
+package com.evgenygerasimov.spring.task_manager.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
