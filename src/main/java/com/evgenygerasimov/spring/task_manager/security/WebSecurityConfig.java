@@ -18,7 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -28,7 +27,6 @@ public class WebSecurityConfig {
 
     public WebSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
-
     }
 
     @Bean

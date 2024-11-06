@@ -1,16 +1,14 @@
 package com.evgenygerasimov.spring.task_manager.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Entity
 @Getter
@@ -20,6 +18,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ToString
 public class User implements UserDetails {
 
+    private static final AtomicLong ID_GENERATOR = new AtomicLong(System.currentTimeMillis());
+
+    @Column(name = "id")
+    private long id = ID_GENERATOR.incrementAndGet();
     @Id
     @Column(name = "username")
     private String username;
@@ -29,6 +31,8 @@ public class User implements UserDetails {
     private int enabled = 1;
     @Column(name = "email")
     private String email;
+    @Column(name = "phone_number")
+    private String phoneNumber;
     @Column(name = "role")
     private String role;
     @OneToMany(mappedBy = "user")
