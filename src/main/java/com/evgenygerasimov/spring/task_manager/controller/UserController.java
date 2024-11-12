@@ -5,6 +5,7 @@ import com.evgenygerasimov.spring.task_manager.entity.Role;
 import com.evgenygerasimov.spring.task_manager.entity.User;
 import com.evgenygerasimov.spring.task_manager.service.RoleService;
 import com.evgenygerasimov.spring.task_manager.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -69,13 +71,18 @@ public class UserController {
     }
 
     @RequestMapping("/saveUser")
-    public String saveUser(@ModelAttribute("userEntity") User user) {
+    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", user);
+            return "add-user";
+        }
         user.setPassword("{bcrypt}" + passwordEncoder.encode(user.getPassword()));
         Role role = new Role();
         role.setUsername(user.getUsername());
         role.setAuthority(user.getRole());
-        userService.save(user);
         roleService.save(role);
+        userService.save(user);
+
         return "redirect:/";
     }
 

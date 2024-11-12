@@ -4,6 +4,7 @@ import com.evgenygerasimov.spring.task_manager.entity.Task;
 import com.evgenygerasimov.spring.task_manager.entity.User;
 import com.evgenygerasimov.spring.task_manager.service.TaskService;
 import com.evgenygerasimov.spring.task_manager.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -51,7 +53,15 @@ public class TaskController {
     }
 
     @PostMapping("/saveTask")
-    public String saveTask(@ModelAttribute("task") Task task) {
+    public String saveTask(@Valid @ModelAttribute("task") Task task, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            task.setAuthor(authentication.getName());
+            task.setListUsers(userService.getListExecutors());
+            task.setUser(userService.findByUsername(authentication.getName()));
+            model.addAttribute("task", task);
+            return "add-task";
+        }
         taskService.addTask(task);
         return "redirect:/tasks/tasks";
     }

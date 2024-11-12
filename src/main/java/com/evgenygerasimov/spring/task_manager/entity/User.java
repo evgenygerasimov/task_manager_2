@@ -1,6 +1,11 @@
 package com.evgenygerasimov.spring.task_manager.entity;
 
+import com.evgenygerasimov.spring.task_manager.validation.CheckEmail;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,14 +28,18 @@ public class User implements UserDetails {
     private long id = ID_GENERATOR.incrementAndGet();
     @Id
     @Column(name = "username")
+    @Pattern(regexp = "[a-z]{2,50}", message = "The name is required field and must be a minimum of 2 characters and a maximum of 50 characters!")
     private String username;
-    @Column(name = "password")
+    @NotBlank(message = "Don not use the blanks")
+    @Size(min = 4, max = 100, message = "The password must be a minimum of 4 characters and a maximum of 100 characters!")
     private String password;
     @Column(name = "enabled")
     private int enabled = 1;
     @Column(name = "email")
+    @CheckEmail
     private String email;
     @Column(name = "phone_number")
+    @Pattern(regexp = "\\+7\\d{10}", message = "The phone number is required field! Please use the pattern: +7XXXXXXXXXX")
     private String phoneNumber;
     @Column(name = "role")
     private String role;

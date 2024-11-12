@@ -1,6 +1,7 @@
 package com.evgenygerasimov.spring.task_manager.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.HashMap;
@@ -20,8 +21,10 @@ public class Task {
     @Column(name = "id")
     private int id;
     @Column(name = "title")
+    @NotBlank(message = "The title is required!")
     private String title;
     @Column(name = "description")
+    @NotBlank(message = "The description is required!")
     private String description;
     @Column(name = "status")
     private String status;
